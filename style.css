@@ -1,0 +1,139 @@
+:root {
+    --bg-color: white;
+    --typewriterSpeed: 2s;
+    --typewriterCharacters: 18;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: #000000;
+    font-family: monospace;
+    font-size: 16px;
+    
+}
+
+.navbar ul {
+    font-size: 14px;
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.navbar a {
+    color: #000000;
+    text-decoration: none;
+    width: 100px;
+    padding: 25px 20px;
+    display: block;
+    text-align: center;
+}
+
+.navbar li {
+    display: inline-block;
+}
+
+.container {
+    padding-left: 15px;
+    padding-top: 25px;
+    float: left;
+
+}
+
+.left-content {
+    width: 50%;
+}
+
+.text {
+    font-size: clamp(1rem, 3vw + 1rem, 4rem);
+    position: relative;
+    font-family: "Source Code Pro", monospace;
+    position: relative;
+    width: max-content;
+}
+
+.text::before,
+.text::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.text::before {
+    background: var(--bg-color);
+    animation: typewriter var(--typewriterSpeed)
+        steps(var(--typewriterCharacters)) 1s forwards;
+}
+
+.text::after {
+    width: 0.125em;
+    background: black;
+    animation: typewriter var(--typewriterSpeed)
+        steps(var(--typewriterCharacters)) 1s forwards,
+        blink 625ms steps(var(--typewriterCharacters)) infinite;
+}
+@keyframes typewriter {
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes blink {
+    to {
+        background: transparent;
+    }
+}
+
+h3 {
+    padding: 15px;
+}
+
+span {
+    color: darkblue;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.right-content {
+    background-color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel {
+    position: relative;
+    max-width: 500px;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.carousel-images {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.carousel img:first-child {
+    display: block;
+}
