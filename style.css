@@ -201,3 +201,45 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-content, .right-content {
+        width: 100%;
+        height: auto;
+    }
+
+    .right-content {
+        position: relative;
+        top: 0;
+        margin-top: 20px;
+        padding: 0 15px;
+    }
+
+    .carousel {
+        max-width: 100%;
+        max-height: 300px;
+    }
+
+    .carousel img {
+        object-fit: contain;
+    }
+
+    .navbar a {
+        padding: 15px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .text {
+        font-size: clamp(1rem, 2.5vw + 1rem, 3rem);
+    }
+
+    .navbar a {
+        padding: 10px 5px;
+    }
+}
