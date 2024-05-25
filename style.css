@@ -251,3 +251,30 @@ a {
 .pro-container {
     padding: 15px;
 }
+
+.pro-container a {
+    position: relative;
+}
+
+.pro-container a::before {
+    content: "";
+    background-color: black;
+    position: absolute;
+    left: 0.9rem;
+    bottom: -3px;
+    width: 100%;
+    height: 4px;
+    z-index: -1;
+    transition: all 0.3s ease-in-out;
+}
+
+.pro-container a:hover::before {
+    left: -5px;
+    bottom: 0;
+    height: 100%;
+    width: calc(100% + 10px);
+}
+
+.pro-container a:hover {
+    color: white;
+}
