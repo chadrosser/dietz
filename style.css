@@ -162,9 +162,8 @@ a {
     background-color: white;
     position: fixed;
     right: 0;
-    top: 75px;
+    top: 50px;
     box-sizing: border-box;
-    z-index: 1000;
 }
 
 .carousel {
@@ -242,4 +241,9 @@ a {
     .navbar a {
         padding: 10px 5px;
     }
+}
+
+.bio {
+    padding: 15px;
+    margin-top: 20px;
 }
