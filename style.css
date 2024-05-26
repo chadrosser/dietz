@@ -54,7 +54,6 @@ body {
     box-sizing: border-box;
 }
 
-
 /* Hide scrollbar for WebKit browsers */
 .left-content::-webkit-scrollbar {
     width: 0;
@@ -66,7 +65,6 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
-
 
 .left-content a {
     position: relative;
@@ -99,7 +97,6 @@ body {
     font-size: clamp(1rem, 3vw + 1rem, 4rem);
     position: relative;
     font-family: "Source Code Pro", monospace;
-    position: relative;
     width: max-content;
 }
 
@@ -115,16 +112,13 @@ body {
 
 .text::before {
     background: var(--bg-color);
-    animation: typewriter var(--typewriterSpeed)
-        steps(var(--typewriterCharacters)) 1s forwards;
+    animation: typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards;
 }
 
 .text::after {
     width: 0.125em;
     background: black;
-    animation: typewriter var(--typewriterSpeed)
-        steps(var(--typewriterCharacters)) 1s forwards,
-        blink 625ms steps(var(--typewriterCharacters)) infinite;
+    animation: typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards, blink 625ms steps(var(--typewriterCharacters)) infinite;
 }
 
 @keyframes typewriter {
@@ -141,6 +135,11 @@ body {
 
 h3 {
     padding: 15px;
+}
+
+h4 {
+    padding-top: 100px;
+    padding-left: 15px;
 }
 
 span {
@@ -201,6 +200,42 @@ a {
     transform: translate(-50%, -50%);
 }
 
+.bio {
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.pro-container {
+    padding: 15px;
+}
+
+.pro-container a {
+    position: relative;
+}
+
+.pro-container a::before {
+    content: "";
+    background-color: black;
+    position: absolute;
+    left: 0.9rem;
+    bottom: -3px;
+    width: 100%;
+    height: 4px;
+    z-index: -1;
+    transition: all 0.3s ease-in-out;
+}
+
+.pro-container a:hover::before {
+    left: -5px;
+    bottom: 0;
+    height: 100%;
+    width: calc(100% + 10px);
+}
+
+.pro-container a:hover {
+    color: white;
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .container {
@@ -241,40 +276,4 @@ a {
     .navbar a {
         padding: 10px 5px;
     }
-}
-
-.bio {
-    padding: 15px;
-    margin-top: 20px;
-}
-
-.pro-container {
-    padding: 15px;
-}
-
-.pro-container a {
-    position: relative;
-}
-
-.pro-container a::before {
-    content: "";
-    background-color: black;
-    position: absolute;
-    left: 0.9rem;
-    bottom: -3px;
-    width: 100%;
-    height: 4px;
-    z-index: -1;
-    transition: all 0.3s ease-in-out;
-}
-
-.pro-container a:hover::before {
-    left: -5px;
-    bottom: 0;
-    height: 100%;
-    width: calc(100% + 10px);
-}
-
-.pro-container a:hover {
-    color: white;
 }
