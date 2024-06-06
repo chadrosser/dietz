@@ -283,14 +283,7 @@ a {
     }
 
     .blackbox {
-        width: 90vw; /* Scale down the black box on smaller screens */
-        height: 90vw; /* Maintain aspect ratio */
-        top: initial;
-        left: initial;
-        transform: none;
-        bottom: 0; /* Position blackbox at the bottom */
-        max-width: 500px; /* Max width to avoid being too large */
-        max-height: 500px; /* Max height to avoid being too large */
+        display: none; /* Hide the blackbox on mobile devices */
     }
 
     .bio {
@@ -308,13 +301,7 @@ a {
     }
 
     .blackbox {
-        width: 90vw; /* Scale down the black box on smaller screens */
-        height: 90vw; /* Maintain aspect ratio */
-        bottom: 0; /* Position blackbox at the bottom */
-        max-width: 400px; /* Max width to avoid being too large */
-        max-height: 400px; /* Max height to avoid being too large */
-        left: 50%;
-        transform: translateX(-50%);
+        display: none; /* Hide the blackbox on mobile devices */
     }
 
     .carousel-images {
