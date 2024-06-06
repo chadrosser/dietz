@@ -268,8 +268,8 @@ a {
     }
 
     .carousel-images {
-        width: 500px; /* Maintain fixed width for images */
-        height: 500px; /* Maintain fixed height for images */
+        width: 100%;
+        height: auto; /* Allow auto height for images */
     }
 
     .carousel img {
@@ -283,7 +283,7 @@ a {
     }
 
     .blackbox {
-        display: none; /* Hide the blackbox on mobile devices */
+        display: none !important; /* Hide the blackbox on mobile devices */
     }
 
     .bio {
@@ -301,7 +301,7 @@ a {
     }
 
     .blackbox {
-        display: none; /* Hide the blackbox on mobile devices */
+        display: none !important; /* Hide the blackbox on mobile devices */
     }
 
     .carousel-images {
