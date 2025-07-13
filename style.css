@@ -343,46 +343,42 @@ a {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
+.laurel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px; pushes below fixed navbar
+    min-height: calc(100vh - 75px);
+    background-color: white;
+    z-index: 1; /* stays below navbar */
+    position: relative;
+}
+
 @keyframes posterFade {
   to {
     opacity: 1;
   }
 }
 
-.grid-wrapper {
+.image-stack {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100%;
+  gap: 30px;           /* space between images */
+  padding: 10px 0;
 }
 
-
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-/* Images are square and look clean, with zoom on hover */
-.photo-grid img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, z-index 0.3s;
-  cursor: pointer;
-}
-
-/* Zoom effect when hovering */
-.photo-grid img:hover {
-  transform: scale(2.5);
-  z-index: 10;
+.image-stack img {
+  width: 100%;
+  max-width: 700px;    /* or however wide you want them */
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .description {
   max-width: 700px;            /* limit line length */
-  margin: 100px auto 50px;     /* top and bottom spacing, center horizontally */
+  margin: 10px auto 50px;     /* top and bottom spacing, center horizontally */
   padding: 20px 30px;
   text-align: center;
   font-family: monospace;      /* keep monospace font */
