@@ -7,6 +7,7 @@
 body {
     margin: 0;
     padding: 0;
+    padding-bottom: 75px;
     background-color: white;
     color: #000000;
     font-family: monospace;
@@ -320,3 +321,32 @@ a {
     }
 
 }
+
+/* Poster Section — sits below navbar */
+.poster-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px; /* pushes below fixed navbar */
+  min-height: calc(100vh - 75px);
+  background-color: white;
+  z-index: 1; /* stays below navbar */
+  position: relative;
+}
+
+/* Poster Image Animation */
+.poster-fade-in {
+  opacity: 0;
+  animation: posterFade 2s ease-in forwards;
+  max-width: 90%;
+  max-height: 85vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes posterFade {
+  to {
+    opacity: 1;
+  }
+}
+
+
