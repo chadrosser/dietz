@@ -349,4 +349,48 @@ a {
   }
 }
 
+.grid-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* Images are square and look clean, with zoom on hover */
+.photo-grid img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, z-index 0.3s;
+  cursor: pointer;
+}
+
+/* Zoom effect when hovering */
+.photo-grid img:hover {
+  transform: scale(2.5);
+  z-index: 10;
+}
+
+.description {
+  max-width: 700px;            /* limit line length */
+  margin: 100px auto 50px;     /* top and bottom spacing, center horizontally */
+  padding: 20px 30px;
+  text-align: center;
+  font-family: monospace;      /* keep monospace font */
+  font-size: 16px;             /* match body font size */
+  line-height: 1.5;
+  color: #000000;
+  background-color: #f9f9f9;   /* subtle off-white background to separate it */
+  border: 1px solid #ddd;      /* light border for definition */
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
