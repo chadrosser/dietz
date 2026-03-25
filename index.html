@@ -768,12 +768,16 @@
           <span>YouTube</span>
           <a href="http://www.youtube.com/@joshuaryandietz" target="_blank">@joshuaryandietz ↗</a>
         </div>
+        <div class="contact-line">
+          <span>IMDb</span>
+          <a href="https://www.imdb.com/name/nm6792980/" target="_blank">IMDb ↗</a>
+        </div>
         </div>
       </div>
     </div>
   </section>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     function showPage(id) {
       document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
       var target = document.getElementById(id);
@@ -800,9 +804,4 @@
       var stills = item.querySelector('.film-stills');
       var label = item.querySelector('.film-expand');
       if (!stills) return;
-      stills.classList.toggle('open');
-      if (label) label.textContent = stills.classList.contains('open') ? 'Close ↑' : 'View stills ↓';
-    }
-  </script>
-</body>
-</html>
+      s
