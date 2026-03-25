@@ -1,91 +1,799 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOSHUA RYAN DIETZ</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JOSHUA RYAN DIETZ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f2f0eb;
+      --accent: #c8b89a;
+      --dim: rgba(242,240,235,0.35);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --mono: 'Courier Prime', 'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.7;
+      letter-spacing: 0.04em;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px;
+      mix-blend-mode: normal;
+    }
+
+    .nav-name {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.9;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.55;
+      transition: opacity 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── PAGES ── */
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding-top: 90px;
+      animation: pageFade 0.6s ease forwards;
+    }
+
+    .page.active { display: block; }
+
+    @keyframes pageFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── HOME ── */
+    #home {
+      display: none;
+      height: 100vh;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home.active { display: block; }
+
+    .home-name {
+      position: absolute;
+      bottom: 60px;
+      left: 48px;
+      z-index: 10;
+    }
+
+    .home-name h1 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(42px, 7vw, 88px);
+      letter-spacing: -0.01em;
+      line-height: 0.92;
+      color: var(--white);
+      pointer-events: none;
+    }
+
+    .home-name h1 em {
+      font-style: normal;
+      font-weight: 600;
+      display: block;
+    }
+
+    .home-tagline {
+      margin-top: 16px;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.8;
+    }
+
+    /* Carousel */
+    .carousel-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .carousel-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(10,10,10,0.92) 0%,
+        rgba(10,10,10,0.6) 45%,
+        rgba(10,10,10,0.15) 100%
+      );
+      z-index: 2;
+    }
+
+    .carousel-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+    }
+
+    .carousel-img.visible { opacity: 1; }
+
+    /* ── FILM ── */
+    .film-grid {
+      padding: 0 48px 80px;
+    }
+
+    .film-grid h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 60px;
+      padding-top: 10px;
+    }
+
+    .film-item {
+      border-top: 1px solid rgba(242,240,235,0.1);
+      padding: 36px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .film-item:hover { border-color: var(--accent); }
+
+    .film-item:last-child { border-bottom: 1px solid rgba(242,240,235,0.1); }
+
+    .film-meta h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(20px, 3vw, 30px);
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .film-item:hover .film-meta h3 { color: var(--accent); }
+
+    .film-role {
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.7;
+      margin-bottom: 16px;
+    }
+
+    .film-desc {
+      font-size: 12px;
+      color: var(--dim);
+      line-height: 1.8;
+      max-width: 480px;
+    }
+
+    .film-stills {
+      display: none;
+      grid-column: 1 / -1;
+      gap: 16px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .film-stills.open { display: flex; }
+
+    .film-stills img {
+      width: calc(33.333% - 11px);
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+      filter: grayscale(20%);
+    }
+
+    .film-stills img:hover { opacity: 1; filter: none; }
+
+    .film-expand {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.6;
+      margin-top: 12px;
+      transition: opacity 0.3s;
+      display: inline-block;
+    }
+
+    .film-item:hover .film-expand { opacity: 1; }
+
+    .film-item.no-stills { cursor: default; }
+    .film-item.no-stills:hover { border-color: rgba(242,240,235,0.1); }
+    .film-item.no-stills:hover .film-meta h3 { color: var(--white); }
+
+    .film-quote {
+      font-style: italic;
+      color: var(--accent) !important;
+      opacity: 0.85;
+      font-size: 13px !important;
+    }
+
+    .film-watch-link {
+      display: inline-block;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .film-watch-link:hover { opacity: 1; }
+
+    .film-poster {
+
+    .film-item:hover .film-poster { opacity: 1; filter: none; }
+
+    /* ── THEATRE ── */
+    .theatre-wrap {
+      padding: 0 48px 80px;
+    }
+
+    .theatre-wrap h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 60px;
+    }
+
+    .theatre-item {
+      border-top: 1px solid rgba(242,240,235,0.1);
+      padding: 36px 0;
+      max-width: 700px;
+    }
+
+    .theatre-item:last-child { border-bottom: 1px solid rgba(242,240,235,0.1); }
+
+    .theatre-item h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(20px, 3vw, 28px);
+      margin-bottom: 6px;
+    }
+
+    .theatre-item .film-role { margin-bottom: 12px; }
+
+    .theatre-item p {
+      font-size: 12px;
+      color: var(--dim);
+      line-height: 1.8;
+    }
+
+    .theatre-item a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-top: 14px;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .theatre-item a:hover { opacity: 1; }
+
+    /* ── OTHER ── */
+    .other-wrap {
+      padding: 0 48px 80px;
+    }
+
+    .other-wrap h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 60px;
+    }
+
+    .other-item {
+      border-top: 1px solid rgba(242,240,235,0.1);
+      padding: 36px 0;
+      max-width: 700px;
+    }
+
+    .other-item:last-child { border-bottom: 1px solid rgba(242,240,235,0.1); }
+
+    .other-item h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(20px, 3vw, 28px);
+      margin-bottom: 6px;
+    }
+
+    .other-item p {
+      font-size: 12px;
+      color: var(--dim);
+      line-height: 1.8;
+      margin-top: 10px;
+    }
+
+    .other-item a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-top: 14px;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .other-item a:hover { opacity: 1; }
+
+    /* ── BIOGRAPHY ── */
+    .bio-wrap {
+      padding: 0 48px 80px;
+      max-width: 760px;
+    }
+
+    .bio-wrap h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 60px;
+    }
+
+    .bio-wrap p {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(18px, 2.5vw, 24px);
+      line-height: 1.75;
+      color: var(--white);
+      margin-bottom: 28px;
+      opacity: 0.88;
+    }
+
+    /* ── CONTACT ── */
+    .contact-wrap {
+      padding: 0 48px 80px;
+    }
+
+    .contact-wrap h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 60px;
+    }
+
+    .contact-section {
+      margin-bottom: 56px;
+    }
+
+    .contact-section h3 {
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.6;
+      margin-bottom: 20px;
+    }
+
+    .contact-line {
+      border-top: 1px solid rgba(242,240,235,0.1);
+      padding: 18px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .contact-line:last-child { border-bottom: 1px solid rgba(242,240,235,0.1); }
+
+    .contact-line span {
+      font-family: var(--serif);
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 300;
+    }
+
+    .contact-line a {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      opacity: 0.65;
+      transition: opacity 0.3s;
+    }
+
+    .contact-line a:hover { opacity: 1; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 22px 24px; }
+      .nav-name { display: none; }
+      .nav-links { gap: 18px; }
+
+      .home-name { left: 24px; bottom: 40px; }
+
+      .film-grid, .theatre-wrap, .other-wrap, .bio-wrap, .contact-wrap {
+        padding: 0 24px 60px;
+      }
+
+      .film-item { grid-template-columns: 1fr; gap: 24px; }
+      .film-poster { max-width: 100%; aspect-ratio: 16/9; justify-self: start; }
+      .film-stills img { width: calc(50% - 8px); }
+
+      .contact-line { flex-direction: column; gap: 6px; }
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <ul>
-            <li><a href="bio.html">bio</a></li>
-            <li><a href="https://www.instagram.com/joshuaryandietz/">instagram</a></li>
-            <li><a href="https://pro.imdb.com/name/nm6792980/credits">imdbpro</a></li>
-            <li><a href="https://www.imdb.com/name/nm6792980/">imdb</a></li>
-            <li><a href="https://vimeo.com/user220010948">vimeo</a></li>
-            <li><a href="http://www.youtube.com/@joshuaryandietz">youtube</a></li>
-            <li><a href="index.html">home</a></li>
-        </ul>
-    </nav>
-    <div class="container">
-        <div class="left-content">
-            <p class="text">joshua ryan dietz.</p>
-            <p>A recovering development executive turned Los Angeles filmmaker. </p>
-            <p>Representation: Rachel Linehan <span>&</span> Lars Theriot / Industry Entertainment</p>
-            <p>Affiliations: Writers Guild of America West</p>
-            <p>Production Company: <a href="production.html">Tammie's Son</a></p>
-            <div class="writerdirector">
-                <h3>Writer/Director</h3>
-                <ul>
-                    <li><a href="supper.html">SUPPER</a></li>
-                    <li><a href="something.html">THICK (feature film, coming soon)</a></li>
-                </ul>
-            </div>
-        
-            <div class="producer">
-                <h3>Producer</h3>
-                <ul>
-                    <li><a href="https://www.imdb.com/title/tt8461224/?ref_=nm_flmg_t_3_prd">The Tax Collector (dir. David Ayer, starring Shia Labeouf)</a></li>
-                    <li><a href="https://www.imdb.com/title/tt14138650/?ref_=nm_flmg_t_2_prd">The Pale Blue Eye (dir. Scott Cooper, starring Christian Bale)</a></li>
-                    <li><a href="https://www.youtube.com/@commanderathome">Commander at Home</a></li>
-                </ul>
-            </div>
-        
-            <div class="writer">
-                <h3>Writer</h3>
-                <ul>
-                    <li><a href="https://www.imdb.com/title/tt11197244/?ref_=nm_flmg_unrel_1_prd">The LaLaurie Mansion (horror feature)</a></li>
-                    <li><a href="something.html">Untitled Pain Clinic Project (biopic)</a></li>
-                </ul>
-            </div>
-        
-            <div class="immersive">
-                <h3>Immersive Experience Creator</h3>
-                <ul>
-                    <li><a href="https://www.haunting.net/iconfidant2020-non-beta-review/">iConfidant (pen-pal experience)</a></li>
-                    <li><a href="https://vimeo.com/948934424">One Day Die (at home séance experience)</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="right-content">
-            <div class="carousel">
-                <div class="blackbox"></div>
-                <div class="carousel-images">
-                    <img src="images/1.JPG" alt="Image 1">
-                    <img src="images/2.JPG" alt="Image 2">
-                    <img src="images/3.jpg" alt="Image 3">
-                    <img src="images/4.JPG" alt="Image 4">
-                    <img src="images/5.JPG" alt="Image 5">
-                    <img src="images/7.JPG" alt="Image 7">
-                    <img src="images/8.JPG" alt="Image 8">
-                    <img src="images/9.JPG" alt="Image 9">
-                    <img src="images/10.JPG" alt="Image 10">
-                    <img src="images/11.JPG" alt="Image 11">
-                    <img src="images/12.PNG" alt="Image 12">
-                    <img src="images/13.JPG" alt="Image 13">
-                    <img src="images/14.JPG" alt="Image 14">
-                    <img src="images/15.JPG" alt="Image 15">
-                    <img src="images/16.JPG" alt="Image 16">
-                    <img src="images/17.jpeg" alt="Image 17">
-                </div>
-            </div>
-        </div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-name" href="#" onclick="showPage('home')">Joshua Ryan Dietz</a>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('film')">Film</a></li>
+      <li><a href="#" onclick="showPage('theatre')">Theatre</a></li>
+      <li><a href="#" onclick="showPage('other')">Other</a></li>
+      <li><a href="#" onclick="showPage('biography')">Biography</a></li>
+      <li><a href="#" onclick="showPage('tammies')">Tammie's Son</a></li>
+      <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- HOME -->
+  <section id="home" class="page active">
+    <div class="carousel-wrap">
+      <img class="carousel-img visible" src="images/1.jpg" alt="" />
+      <img class="carousel-img" src="images/2.jpg" alt="" />
+      <img class="carousel-img" src="images/3.jpg" alt="" />
+      <img class="carousel-img" src="images/4.jpg" alt="" />
+      <img class="carousel-img" src="images/5.jpg" alt="" />
+      <img class="carousel-img" src="images/6.jpg" alt="" />
+      <img class="carousel-img" src="images/7.jpg" alt="" />
+      <img class="carousel-img" src="images/8.jpg" alt="" />
+      <img class="carousel-img" src="images/9.jpg" alt="" />
+      <img class="carousel-img" src="images/10.jpg" alt="" />
+      <img class="carousel-img" src="images/11.jpg" alt="" />
+      <img class="carousel-img" src="images/12.jpg" alt="" />
+      <img class="carousel-img" src="images/13.jpg" alt="" />
+      <img class="carousel-img" src="images/14.jpg" alt="" />
+      <img class="carousel-img" src="images/15.jpg" alt="" />
+      <img class="carousel-img" src="images/16.jpg" alt="" />
+      <img class="carousel-img" src="images/17.jpg" alt="" />
+      <img class="carousel-img" src="images/18.png" alt="" />
+      <img class="carousel-img" src="images/19.jpg" alt="" />
     </div>
- 
-    <script src="script.js"></script>
-    
+    <div class="home-name">
+      <h1>Joshua<br>Ryan<em>Dietz.</em></h1>
+      <p class="home-tagline">Los Angeles &nbsp;·&nbsp; Writer &nbsp;·&nbsp; Director &nbsp;·&nbsp; WGA West</p>
+    </div>
+  </section>
 
 
-</body>
-</html>
+  <!-- FILM -->
+  <section id="film" class="page">
+    <div class="film-grid">
+      <h2>Film</h2>
+
+      <!-- THICK -->
+      <div class="film-item no-stills">
+        <div class="film-meta">
+          <div class="film-role">Writer / Director</div>
+          <h3>Thick</h3>
+          <p class="film-desc">A feature film currently in development. More details to come.</p>
+        </div>
+      </div>
+
+      <!-- AN UNPLEASANT BUT PROMISING CONVERSATION -->
+      <div class="film-item no-stills">
+        <div class="film-meta">
+          <div class="film-role">Writer / Director</div>
+          <h3>An Unpleasant but Promising Conversation</h3>
+          <p class="film-desc">A feature film currently in development. More details to come.</p>
+        </div>
+      </div>
+
+      <!-- SUPPER -->
+      <div class="film-item" onclick="toggleStills(this)">
+        <div class="film-meta">
+          <div class="film-role">Writer / Director</div>
+          <h3>Supper</h3>
+          <p class="film-desc film-quote">"This might be one of the weirdest, most delightfully unhinged films I've seen in years, if not ever." — Russ Pirozek, BitPix News</p>
+          <p class="film-desc" style="margin-top:12px;">A dysfunctional family comes together to kick their brother out of the family through a new legal process known as familial emancipation, only to begin arguing about who their father's favorite child is. As secrets are revealed, things take a turn for the tragic and violent.</p>
+          <p class="film-desc" style="margin-top:10px; opacity:0.5;">HollyShorts · Cleveland International · Odense International · Filmquest · and more. Nominated: Best Comedy Short, Best Screenplay, Best Ensemble Cast. Online premiere via Omeleto — 30k+ views.</p>
+          <a class="film-watch-link" href="https://www.youtube.com/watch?v=5iPpp-u7XFk&t=2s" target="_blank" onclick="event.stopPropagation()">Watch ↗</a>
+          <span class="film-expand">View stills ↓</span>
+          <div class="film-stills">
+            <img src="images/supper/still-1.jpg" alt="Supper still" />
+            <img src="images/supper/still-2.jpg" alt="Supper still" />
+            <img src="images/supper/still-3.jpg" alt="Supper still" />
+            <img src="images/supper/still-4.jpg" alt="Supper still" />
+            <img src="images/supper/still-5.jpg" alt="Supper still" />
+            <img src="images/supper/still-6.jpg" alt="Supper still" />
+            <img src="images/supper/still-7.jpg" alt="Supper still" />
+            <img src="images/supper/still-8.jpg" alt="Supper still" />
+          </div>
+        </div>
+        <img class="film-poster" src="images/supper/poster.jpg" alt="Supper poster" />
+      </div>
+
+      <!-- THE PALE BLUE EYE -->
+      <div class="film-item" onclick="toggleStills(this)">
+        <div class="film-meta">
+          <div class="film-role">Producer</div>
+          <h3>The Pale Blue Eye</h3>
+          <p class="film-desc">Directed by Scott Cooper, starring Christian Bale. A detective enlists the help of a young Edgar Allan Poe to solve a series of murders near West Point in 1830.</p>
+          <span class="film-expand">View stills ↓</span>
+          <div class="film-stills">
+            <img src="images/pbe/still-1.jpg" alt="The Pale Blue Eye still" />
+            <img src="images/pbe/still-2.jpg" alt="The Pale Blue Eye still" />
+            <img src="images/pbe/still-3.jpg" alt="The Pale Blue Eye still" />
+            <img src="images/pbe/still-4.jpg" alt="The Pale Blue Eye still" />
+            <img src="images/pbe/still-5.jpg" alt="The Pale Blue Eye still" />
+          </div>
+        </div>
+        <!-- <img class="film-poster" src="images/pbe/poster.jpg" alt="The Pale Blue Eye poster" /> -->
+      </div>
+
+      <!-- THE TAX COLLECTOR -->
+      <div class="film-item" onclick="toggleStills(this)">
+        <div class="film-meta">
+          <div class="film-role">Producer</div>
+          <h3>The Tax Collector</h3>
+          <p class="film-desc">Directed by David Ayer, starring Shia LaBeouf. A crime enforcer collecting for a Los Angeles crime lord finds his world upended when a rival threatens everything he holds dear.</p>
+          <span class="film-expand">View stills ↓</span>
+          <div class="film-stills">
+            <img src="images/tc/still-1.jpg" alt="The Tax Collector still" />
+            <img src="images/tc/still-2.jpg" alt="The Tax Collector still" />
+            <img src="images/tc/still-3.jpg" alt="The Tax Collector still" />
+            <img src="images/tc/still-4.jpg" alt="The Tax Collector still" />
+          </div>
+        </div>
+        <!-- <img class="film-poster" src="images/tc/poster.jpg" alt="The Tax Collector poster" /> -->
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- THEATRE -->
+  <section id="theatre" class="page">
+    <div class="theatre-wrap">
+      <h2>Theatre</h2>
+
+      <div class="theatre-item">
+        <div class="film-role">Creator</div>
+        <h3>iConfidant</h3>
+        <p>A pen-pal experience that blurred the line between fiction and reality, connecting participants with anonymous correspondents in an ongoing epistolary narrative.</p>
+        <a href="https://www.haunting.net/iconfidant2020-non-beta-review/" target="_blank">Read more ↗</a>
+      </div>
+
+      <div class="theatre-item">
+        <div class="film-role">Creator</div>
+        <h3>One Day Die</h3>
+        <p>An at-home séance experience. Add your description here.</p>
+        <a href="https://vimeo.com/948934424" target="_blank">Watch ↗</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- OTHER -->
+  <section id="other" class="page">
+    <div class="other-wrap">
+      <h2>Other</h2>
+
+      <div class="other-item">
+        <div class="film-role">Co-Creator</div>
+        <h3>Commander at Home</h3>
+        <p>Commander at Home is one of the fastest growing Magic: The Gathering YouTube series with nearly 300k subscribers and 100,000,000 views, bringing celebrity guests together to play with hosts Brian Kibler and Olivia Gobert-Hicks.</p>
+        <a href="https://www.youtube.com/@commanderathome" target="_blank">Watch ↗</a>
+      </div>
+
+      <div class="other-item">
+        <div class="film-role">Director</div>
+        <h3>Sega Atlus × Persona 3 Reload Anniversary Special</h3>
+        <a href="https://www.youtube.com/watch?v=DKziqp8RCA0&t=223s" target="_blank">Watch ↗</a>
+      </div>
+
+      <div class="other-item">
+        <div class="film-role">Director</div>
+        <h3>Sega Atlus × Metaphor: ReFantazio Behind the Voices</h3>
+        <a href="https://www.youtube.com/watch?v=JmYXQ_01Dwc&t=181s" target="_blank">Watch ↗</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- BIOGRAPHY -->
+  <section id="biography" class="page">
+    <div class="bio-wrap">
+      <h2>Biography</h2>
+      <p>
+        Joshua Ryan Dietz is a Los Angeles-based filmmaker and former development executive whose work explores obsession, duality, and the often-disorienting edges of human behavior. A storyteller across film, theatre, and digital media, Dietz brings a uniquely psychological lens to genre narratives, often blurring the line between bleak realism and comedic absurdity.
+      </p>
+      <p>
+        After nearly a decade in development, where he shepherded projects and wrote nearly thirty screenplays, Dietz shifted his focus to directing his own work. He made his producing debut on David Ayer's <em>The Tax Collector</em> and later served as co-executive producer on Scott Cooper's <em>The Pale Blue Eye</em> starring Christian Bale. His creative voice emerged through his writing and immersive storytelling, including the theatre-bending experiences iConfidant and One Day Die, praised by artists such as Neil Patrick Harris and Joe Russo.
+      </p>
+      <p>
+        His directorial debut short film, <em>Supper</em>, blends dark familial tension with allegorical undercurrents in a darkly comedic tragedy. <em>Supper</em> has played many Oscar Qualifying festivals, including the prestigious HollyShorts, the Cleveland International Film Festival, and several more. It received nominations for Best Screenplay, Best Comedy Short, and Best Ensemble Cast. It was released online with the highly competitive Omeleto where it received over 30k views.
+      </p>
+      <p>
+        Dietz is a Writers Guild of America member and currently putting together his feature debut. His commercial work has partnered him with big brands such as Sega, Marvel, Mozilla Firefox, Wizards of the Coast, and many more.
+      </p>
+      <p>
+        When not writing, Dietz is utilizing his nerdy passion for Magic: The Gathering by producing the highly successful show Commander at Home, or hanging with his wife and cat, or doom scrolling on Zillow.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- TAMMIE'S SON -->
+  <section id="tammies" class="page">
+    <div class="bio-wrap">
+      <h2>Tammie's Son</h2>
+      <p>
+        Joshua Ryan Dietz is a Los Angeles-based filmmaker and former development executive whose work explores obsession, duality, and the often-disorienting edges of human behavior. A storyteller across film, theatre, and digital media, Dietz brings a uniquely psychological lens to genre narratives, often blurring the line between bleak realism and comedic absurdity.
+      </p>
+      <p>
+        After nearly a decade in development, where he shepherded projects and wrote nearly thirty screenplays, Dietz shifted his focus to directing his own work. He made his producing debut on David Ayer's <em>The Tax Collector</em> and later served as co-executive producer on Scott Cooper's <em>The Pale Blue Eye</em> starring Christian Bale. His creative voice emerged through his writing and immersive storytelling, including the theatre-bending experiences iConfidant and One Day Die, praised by artists such as Neil Patrick Harris and Joe Russo.
+      </p>
+      <p>
+        His directorial debut short film, <em>Supper</em>, blends dark familial tension with allegorical undercurrents in a darkly comedic tragedy. <em>Supper</em> has played many Oscar Qualifying festivals, including the prestigious HollyShorts, the Cleveland International Film Festival, and several more. It received nominations for Best Screenplay, Best Comedy Short, and Best Ensemble Cast. It was released online with the highly competitive Omeleto where it received over 30k views.
+      </p>
+      <p>
+        Dietz is a Writers Guild of America member and currently putting together his feature debut. His commercial work has partnered him with big brands such as Sega, Marvel, Mozilla Firefox, Wizards of the Coast, and many more.
+      </p>
+      <p>
+        When not writing, Dietz is utilizing his nerdy passion for Magic: The Gathering by producing the highly successful show Commander at Home, or hanging with his wife and cat, or doom scrolling on Zillow.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- CONTACT -->
+  <section id="contact" class="page">
+    <div class="contact-wrap">
+      <h2>Contact</h2>
+
+      <div class="contact-section">
+        <h3>Representation</h3>
+        <div class="contact-line">
+          <span>Rachel Linehan &amp; Lars Theriot</span>
+          <a href="/cdn-cgi/l/email-protection#453724262d2029052c2b21303631373c202b31203731242c2b28202b316b262a28"><span class="__cf_email__" data-cfemail="83f1e2e0ebe6efc3eaede7f6f0f7f1fae6edf7e6f1f7e2eaedeee6edf7ade0ecee">[email&#160;protected]</span> ↗</a>
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <h3>Social</h3>
+        <div class="contact-line">
+          <span>Instagram</span>
+          <a href="https://www.instagram.com/joshuaryandietz/" target="_blank">@joshuaryandietz ↗</a>
+        </div>
+        <div class="contact-line">
+          <span>YouTube</span>
+          <a href="http://www.youtube.com/@joshuaryandietz" target="_blank">@joshuaryandietz ↗</a>
+        </div>
+        <div class="contact-line">
+          <span>IMDb</span>
+          <a href="https://www.imdb.com/name/nm6792980/" target="_blank">nm6792980 ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ── PAGE SWITCHING ──
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo(0, 0);
+      }
+      return false;
+    }
+
+    // prevent default on nav links
+    document.querySelectorAll('.nav-links a, .nav-name').forEach(a => {
+      a.addEventListener('click', e => e.preventDefault());
+    });
+
+    // ── CAROUSEL ──
+    const imgs = document.querySelectorAll('.carousel-img');
+    let current = 0;
+
+    function nextSlide() {
+      imgs[current].classList.remove('visible');
+      current = (current + 1) % imgs.length;
+      imgs[current].classList.add('visible');
+    }
+
+    setInterval(nextSlide, 5000);
+
+    // ── FILM STILLS TOGGLE ──
+    function toggleStills(item) {
+      const stills = item.querySelector('.film-still
