@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -507,14 +507,14 @@
 
   <!-- NAV -->
   <nav>
-    <a class="nav-name" href="#" onclick="showPage('home')">Joshua Ryan Dietz</a>
+    <a class="nav-name" href="#" data-page="home">Joshua Ryan Dietz</a>
     <ul class="nav-links">
-      <li><a href="#" onclick="showPage('film')">Film</a></li>
-      <li><a href="#" onclick="showPage('theatre')">Theatre</a></li>
-      <li><a href="#" onclick="showPage('other')">Other</a></li>
-      <li><a href="#" onclick="showPage('biography')">Biography</a></li>
-      <li><a href="#" onclick="showPage('tammies')">Tammie's Son</a></li>
-      <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+      <li><a href="#" data-page="film">Film</a></li>
+      <li><a href="#" data-page="theatre">Theatre</a></li>
+      <li><a href="#" data-page="other">Other</a></li>
+      <li><a href="#" data-page="biography">Biography</a></li>
+      <li><a href="#" data-page="tammies">Tammie's Son</a></li>
+      <li><a href="#" data-page="contact">Contact</a></li>
     </ul>
   </nav>
 
@@ -774,25 +774,29 @@
         target.classList.add('active');
         window.scrollTo(0, 0);
       }
-      return false;
     }
 
-    // prevent default on nav links
-    document.querySelectorAll('.nav-links a, .nav-name').forEach(a => {
-      a.addEventListener('click', e => e.preventDefault());
+    document.addEventListener('DOMContentLoaded', function() {
+      // Nav click handlers via data-page attributes
+      document.querySelectorAll('[data-page]').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          showPage(this.getAttribute('data-page'));
+        });
+      });
+
+      // ── CAROUSEL ──
+      const imgs = document.querySelectorAll('.carousel-img');
+      let current = 0;
+
+      function nextSlide() {
+        imgs[current].classList.remove('visible');
+        current = (current + 1) % imgs.length;
+        imgs[current].classList.add('visible');
+      }
+
+      setInterval(nextSlide, 5000);
     });
-
-    // ── CAROUSEL ──
-    const imgs = document.querySelectorAll('.carousel-img');
-    let current = 0;
-
-    function nextSlide() {
-      imgs[current].classList.remove('visible');
-      current = (current + 1) % imgs.length;
-      imgs[current].classList.add('visible');
-    }
-
-    setInterval(nextSlide, 5000);
 
     // ── FILM STILLS TOGGLE ──
     function toggleStills(item) {
